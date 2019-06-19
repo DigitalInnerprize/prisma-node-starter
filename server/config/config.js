@@ -6,7 +6,7 @@ module.exports = {
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_NAME,
     "host": process.env.DB_HOST,
-    "operatorsAliases": false,
+    "protocol": "tcp",
     "dialect": "mysql"
   },
   "staging": {
@@ -14,7 +14,7 @@ module.exports = {
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_NAME,
     "host": process.env.DB_HOST,
-    "operatorsAliases": false,
+    "protocol": "tcp",
     "dialect": "mysql",
     "logging": false
   },
@@ -23,7 +23,7 @@ module.exports = {
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_NAME,
     "host": process.env.DB_HOST,
-    "operatorsAliases": false,
+    "protocol": "tcp",
     "dialect": "mysql"
   }
 }

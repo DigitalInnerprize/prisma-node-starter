@@ -6,44 +6,32 @@
 ## Docker MySQL quick startup
 Steps are easier on Unix
 
-- `Sequelize may have issues on Windows connecting to MySQL docker port 3306 may have to change port route in docker-compose.yml`
+- `Sequelize will have issues on Windows if not using Git Bash || WSL`
 - `use bcryptjs not bcrypt package to avoid elf header error with docker`
-```
-Set MySQL docker container port to available port other than 3306.
-```
 
-`Unix`
 #
-- Clone docker-compose.yml file
-- Create docker environment variables in .docker.env file
+### Before running `docker-compose up`
+
+- `In terminal navigate to server folder and run command:`
+```
+chmod +x wait-for-it.sh
+```
+#
+`Unix`
+- Create server env variable
+- Create docker env variables for mysql in .docker.env file
 - Port can be changed in docker-compose.yml file
 ```
 docker-compose up
-mysql -P [PORT_ENV] -u root -p
 ```
-
-`Windows`
 #
+`Windows`
 
-### Follow steps if choosing to use (WSL)
+
+### Install `Git Bash || (WSL)` to run the above command
 - First install wsl (Windows Subsystem for Linux) PS: 'Make sure to go to direct links inside the article for latest commands to use not direct commands from article' `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
 
 - Sync up windows docker and wsl docker to work together `https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly`
-
-#
-- Using vscode (WSL) terminal
-```
-docker exec -it di_dev_mysql mysql -P 3307 -u root -p
-```
-#
-- Using `Git Bash` || using `Powershell`
-```
-mysql -P [PORT_ENV] -u root -p
-```
-#
-- Enter `MYSQL_ROOT_PASSWORD`
-
-- Create new user for access into mysql shell `CREATE USER 'someuser'@'localhost' IDENTIFIED BY 'somepassword';`
 #
 
 ### MySQL cheat sheet
@@ -51,16 +39,9 @@ mysql -P [PORT_ENV] -u root -p
 #
 
 ## Sequelize
-### Sequelize can setup initial mysql folder structure easily
-```
-npm i -S sequelize
-npm i -S mysql2
-cd [api_folder]
-npx sequelize-cli init
-```
+- `First add 'require('dotenv').config()' at top of file for env vars in config.js file to be used`
 ### Sequelize test db connection funcs
 ```
-- First add 'require('dotenv').config()' at top of file for env vars to be used in config.js
 
 db.sequelize
   .authenticate()

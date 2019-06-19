@@ -6,8 +6,10 @@
   "author": "Martez Conner",
   "license": "MIT",
   "scripts": {
-    "start": "node run.js",
-    "server": "nodemon run.js"
+    "start": "sequelize db:create && node run.js",
+    "start:container": "npx sequelize-cli db:create && node run.js",
+    "server": "sequelize db:create && nodemon run.js",
+    "server:container": "npx sequelize-cli db:create && nodemon run.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,7 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.1",
-    "sequelize": "^4.38.0"
+    "sequelize": "^5.8.8"
   },
   "devDependencies": {}
 }
