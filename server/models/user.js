@@ -29,30 +29,21 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: async (user, options) => {
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt)
-      },
-      afterCreate: async (user, async) => {
-        try {
-          const token = await jwt.sign({id: user.id}, process.env.TOKEN_KEY, {
-            expiresIn: "24h"
-          });
-          return token;
-        } catch (error) {
-          throw new Error('Error while creating user')
-        }
-      }
-    },
-    instanceMethods: {
-      validPassword: async (candidatePassword) => {
-        return await bcrypt.compare(candidatePassword, this.password);
-      },
-      getJWT: async () => {
-        const token = await jwt.sign({id: user.id}, process.env.TOKEN_KEY, {
-          expiresIn: "24h"
-        });
-        return 'Bearer' + token;
       }
     }
   });
+
+  User.prototype.validatePassword = async function validatePassword(candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+  };
+
+  User.prototype.getJWT = async function getJWT() {
+    const token = await jwt.sign({id: this.id}, process.env.TOKEN_KEY, {
+      expiresIn: "24h"
+    });
+    return `Bearer ${token}`;
+  };
+
   User.associate = function(models) {
     // associations can be defined here
   };

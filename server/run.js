@@ -1,16 +1,13 @@
 require('dotenv').config();
 const { app } = require('./index');
 const db = require('./models');
+const PORT =  process.env.PORT || 8080;
 
-const run = async () => {
-  try {
-    await db.sequelize.sync();
-    console.log('Database is ready');
-  } catch (error) {
-    throw new Error('Database failed to connect', error)
-  }
-  // eslint-disable-next-line no-console
-  app.listen(3001, () => console.log(`api server started on port ${3001}`));
+const run = () => {
+  db.sequelize.sync()
+    .then(() => console.log('Database is connected'))
+    .then(() => app.listen(PORT, () => console.log(`api server started on port ${PORT}`)))
+    .catch(err => console.log('Failed to connect to database', err));
 }
 
 run();

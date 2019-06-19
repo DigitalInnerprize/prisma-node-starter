@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "description": "",
   "main": "run.js",
   "author": "Martez Conner",
   "license": "MIT",
@@ -15,7 +16,8 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.8.8"
+    "nodemon": "^1.19.1",
+    "sequelize": "^4.38.0"
   },
   "devDependencies": {}
 }
