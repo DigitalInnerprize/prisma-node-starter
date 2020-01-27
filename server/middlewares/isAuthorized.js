@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authorization = (req, res, next) => {
+const isAuthorized = (req, res, next) => {
     const token = req.headers['x-access-token'];
     const msg = {auth: false, message: 'No token provided.'};
     if (!token) res.status(500).send(msg);
@@ -11,4 +11,4 @@ const authorization = (req, res, next) => {
     });
 }
 
-module.exports = authorization;
+module.exports = isAuthorized;
