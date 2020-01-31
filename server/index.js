@@ -4,8 +4,6 @@ const express         = require('express');
 const path            = require('path');
 const cors            = require('cors');
 
-const PORT =  process.env.PORT || 5000;
-
 const app = express();
 
 app.use(cors());
@@ -13,6 +11,17 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/*', (req, res) => res.send('Server api'));
+app.get('/*', (req, res) => res.send('server api'));
 
-app.listen(PORT, () => console.log(`api server started on port ${PORT}`));
+let server;
+module.exports = {
+  start(port) {
+    server = app.listen(port, () => {
+      console.log(`App started on port ${port}`);
+    });
+    return app;
+  },
+  stop() {
+    server.close();
+  }
+};

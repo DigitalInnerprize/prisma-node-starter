@@ -1,19 +1,12 @@
 FROM node:10.16.0
 
-RUN mkdir -p /src/app
-
 RUN apt-get -q update && apt-get -qy install netcat
-RUN npm i npm@latest -g
+RUN npm i npm@6.12.1 -g
 
-WORKDIR /src
-COPY package.json package-lock.json* ./
-RUN npm install && npm cache clean --force
-ENV PATH /src/node_modules/.bin:$PATH
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
 
-WORKDIR /src/app
-COPY . /src/app
-
-COPY wait-for-it.sh .
-
-CMD ["npm", "run", "server"]
+CMD npm start
 

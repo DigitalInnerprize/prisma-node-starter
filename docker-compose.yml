@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  api:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes: 
+      - /app/node_modules
+      - ./server:/app
+    command: npm run dev
+    ports: 
+      - '5000:5000'
+    env_file:
+      - ./server/.env

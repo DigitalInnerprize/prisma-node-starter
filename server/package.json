@@ -6,8 +6,8 @@
   "author": "Martez Conner",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node ./bin/start.js",
+    "dev": "nodemon ./bin/start.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
