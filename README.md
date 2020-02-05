@@ -42,6 +42,9 @@ docker ps
 #
 
 ## Prisma
+
+### [Prisma auth setup](https://www.prisma.io/docs/prisma-server/authentication-and-security-kke4/)
+
 - Make sure `'require('dotenv').config()'` is at top of index file for env vars in config.js file to be used
 ### `If no prisma.yml file`
 ```
