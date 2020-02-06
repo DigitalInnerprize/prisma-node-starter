@@ -5,7 +5,6 @@ const path            = require('path');
 const cors            = require('cors');
 const morgan          = require('morgan')
 const helmet          = require('helmet');
-const { prisma } = require('./generated/prisma-client');
 
 const app = express();
 
@@ -20,6 +19,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/*', (req, res) => res.send('server api'));
+
+/* 404 Not Found middleware */
+app.use((req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error);
+});
+
+/* Error handling middleware
+  helps pinpoint which route is having error
+  if route is 500, error is regarding different route
+*/
+app.use((error, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode);
+  res.json({
+    message: error.message,
+    stack: process.env.NODE_ENV === 'production' ? '🥞' : error.stack
+  });
+});
 
 let server;
 module.exports = {
