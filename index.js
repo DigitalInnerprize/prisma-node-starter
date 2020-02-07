@@ -19,7 +19,9 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/*', (req, res) => res.send('server api'));
+app.get('/*', (req, res) => res.json({
+  message: 'Welcome to api'
+}));
 
 /* 404 Not Found middleware */
 app.use(middlewares.notFound);
