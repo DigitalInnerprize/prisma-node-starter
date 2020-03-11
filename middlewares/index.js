@@ -1,9 +1,9 @@
-const notFound = require('./notFound'),
-      errorHandler = require('./errorHandler'),
-      isAuthorized = require('./isAuthorized');
+import notFound from './notFound';
+import errorHandler from './errorHandler';
+import isAuthorized from './isAuthorized';
 
 
-module.exports = {
+export {
   notFound,
   errorHandler,
   isAuthorized
