@@ -1,6 +1,23 @@
 version: '3.7'
 
 services:
+  prisma:
+    image: "prismagraphql/prisma:${PRISMA_VERSION}"
+    container_name: prisma
+    restart: always
+    ports:
+      - "${PRISMA_PORT}:${PRISMA_PORT}"
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
+        port: ${PRISMA_PORT}
+        databases:
+          default:
+            connector: ${DB_HOST}
+            host: ${DB_HOST}
+            port: ${DB_PORT}
+            user: ${DB_USER}
+            password: ${MYSQL_ROOT_PASSWORD}
   mysql:
     image: "mysql:${MYSQL_VERSION}"
     container_name: mysql
@@ -16,7 +33,7 @@ services:
       - mysql
     restart: always
     environment:
-      - PMA_HOST=mysql
+      - "PMA_HOST=${DB_HOST}"
       - MYSQL_ROOT_PASSWORD
     ports:
       - '8080:80'

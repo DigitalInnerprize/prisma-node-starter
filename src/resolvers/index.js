@@ -1,12 +1,18 @@
-import { Query } from './Query'
-// import { User } from './User'
-import { Post } from './Post'
+import { extractFragmentReplacements } from 'prisma-binding'
+import Query from './Query'
+import User from './User'
 // import { Subscription } from './Subscription'
 // import { auth } from './Mutation/auth'
-// import { user } from './Mutation/user'
+import user from './Mutation/user'
 
 const resolvers = {
-    Query
+  Query,
+  Mutation: {
+    ...user
+  },
+  User
 }
 
-export { resolvers as default }
+const fragmentReplacements = extractFragmentReplacements(resolvers)
+
+export { resolvers, fragmentReplacements }

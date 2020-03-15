@@ -1,0 +1,42 @@
+type User {
+  id: ID! @id
+  firstName: String!
+  lastName: String!
+  email: String! @unique
+  password: String!
+  account: Account @relation(link: INLINE)
+  member: Member
+}
+
+type Member {
+  id: ID! @id
+  role: UserRole! @default(value: USER)
+  user: [User]!
+  company: Company! @relation(link: INLINE)
+}
+
+type Company {
+  id: ID! @id
+  name: String! @unique
+  members: [Member!]!
+  account: Account! @relation(link: INLINE)
+}
+
+type Account {
+  id: ID! @id
+  plan: AccountPlan!
+  planId: String!
+  company: Company
+  user: User
+}
+
+enum AccountPlan {
+  BASIC
+  PREMIUM
+  BUSINESS
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}

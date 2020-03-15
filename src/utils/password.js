@@ -43,6 +43,9 @@ const decrypt = (text, secret) => {
  * @returns {String}
  */
 const makePasswordHash = (plaintextPassword, saltRoundsExponent) => {
+  if (plaintextPassword.length < 8) {
+    throw new Error('Password must be 8 characters or longer')
+  }
   const salt = bcrypt.genSaltSync(saltRoundsExponent || SALT_ROUNDS_EXPONENT);
   return bcrypt.hashSync(plaintextPassword, salt);
 };
